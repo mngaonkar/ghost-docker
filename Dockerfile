@@ -21,12 +21,21 @@ RUN chmod 775 /var/www/ghost
 USER admin
 WORKDIR /var/www/ghost
 
-#RUN ghost install --db=sqlite3 --dbpath=/content/data/ghost.db --dbuser=admin --dbpass=admin --noprompt
-RUN ghost install local
-
 EXPOSE 2368
 RUN sudo apt-get install -y nano
-RUN ghost config --ip 0.0.0.0 --url http://localhost:2368/
+RUN sudo apt-get install -y sqlite3
+
+ENV GHOST_ENV production
+ENV GHOST_INSTALL /var/www/ghost
+ENV GHOST_CONTENT /var/www/ghost/content
+
+#RUN ghost install --db sqlite3 --no-prompt --no-stack --no-setup
+#RUN ghost config --ip 0.0.0.0 --url http://localhost:2368 --db sqlite3 --dbpath $GHOST_CONTENT/data/ghost.db \
+#--process local
+
+RUN ghost install --db sqlite3 --process local --url http://localhost:2368 --ip 0.0.0.0 --no-setup-nginx \
+--no-prompt
+
 
 
 

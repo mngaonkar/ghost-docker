@@ -36,6 +36,9 @@ ENV GHOST_CONTENT /var/www/ghost/content
 RUN ghost install --db sqlite3 --process local --url http://localhost:2368 --ip 0.0.0.0 --no-setup-nginx \
 --no-prompt
 
+ENTRYPOINT ["ghost", "run"]
+
+
 
 
 

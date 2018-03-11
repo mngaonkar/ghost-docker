@@ -12,7 +12,9 @@ RUN npm install -g ghost-cli
 
 RUN mkdir -p /var/www/ghost
 RUN useradd -ms /bin/bash admin
-RUN usermod -aG sudo admin
+RUN echo "admin:admin" | chpasswd
+RUN passwd -d admin
+RUN adduser admin sudo
 RUN chown admin:admin /var/www/ghost
 RUN chmod 775 /var/www/ghost
 
@@ -21,6 +23,10 @@ WORKDIR /var/www/ghost
 
 #RUN ghost install --db=sqlite3 --dbpath=/content/data/ghost.db --dbuser=admin --dbpass=admin --noprompt
 RUN ghost install local
+
+EXPOSE 2368
+RUN sudo apt-get install -y nano
+
 
 
 

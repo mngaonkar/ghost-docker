@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ghost-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  backend:
+    serviceName: ghost-service
+    servicePort: 8080
+  rules:
+  - host:
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: ghost-service
+          servicePort: 8080

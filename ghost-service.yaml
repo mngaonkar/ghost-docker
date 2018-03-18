@@ -10,3 +10,5 @@ spec:
   - protocol: TCP
     port: 2368
     nodePort: 30204
+  externalIPs:
+    - 159.89.171.14
